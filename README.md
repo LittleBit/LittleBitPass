@@ -1,0 +1,2 @@
+# LittleBitPass
+Password manager.
