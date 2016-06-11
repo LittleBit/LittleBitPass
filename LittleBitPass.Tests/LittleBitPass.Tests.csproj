@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{76DE3A04-43ED-4015-8944-363EA6B7D28C}</ProjectGuid>
+    <ProjectGuid>{7BEC7DB5-BB7D-4369-84F0-20F129C2EA78}</ProjectGuid>
     <OutputType>Library</OutputType>
     <RootNamespace>LittleBitPass.Tests</RootNamespace>
     <AssemblyName>LittleBitPass.Tests</AssemblyName>
@@ -67,7 +67,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\LittleBitPass\LittleBitPass.csproj">
-      <Project>{8BE321AF-98D7-4E27-B4DA-72DB7E80A85D}</Project>
+      <Project>{F1C8E557-26AD-469C-89E9-64CA69543C94}</Project>
       <Name>LittleBitPass</Name>
     </ProjectReference>
   </ItemGroup>
