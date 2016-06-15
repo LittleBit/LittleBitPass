@@ -15,7 +15,11 @@ namespace LittleBitPass
 
 		DbConnector() {
 			Connection = new PgSqlConnection(ConfigurationManager.ConnectionStrings["DbConnString"].ConnectionString);
-			Connection.Open();
+			try {				
+				Connection.Open();
+			} catch (Exception ex) {
+				Console.WriteLine (ex.Message);
+			}
 		}
 
 		public PgSqlDataReader RunQuery(string query) {
