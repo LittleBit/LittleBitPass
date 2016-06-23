@@ -82,6 +82,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\DbConnector.cs" />
+    <Compile Include="Models\LoginItem.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Web.config" />
