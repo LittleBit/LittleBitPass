@@ -12,16 +12,16 @@ namespace LittleBitPass
 	/// </summary>
 	public class DbConnector
 	{
-		private ConfigFile _config = new ConfigFile();
+		private ConfigFile _config;
+
 		internal MySqlConnection Connection;
 		public DbConnector() {
-			Console.WriteLine (DbConnString);
-			// Connection string can be found in the Web.config file
+			ConfigReader.Init(config => _config = config);
 			Connection = new MySqlConnection(DbConnString);
 			Connection.Open();
 		}
 
-		private string DbConnString => "Server=" + _config.DbAddress + ";Uid=" + _config.DbUsername + ";Pwd=" + _config.DbPassword + ";Database=lbpdb;";
+		private string DbConnString => "Server=" + _config.DbAddress + ";Uid=" + _config.DbUsername + ";Pwd=" + _config.DbPassword + ";Database=" + _config.DbName + ";";
 
 
 		/// <summary>

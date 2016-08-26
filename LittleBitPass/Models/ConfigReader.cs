@@ -38,6 +38,7 @@ namespace LittleBitPass
 						// not a (valid) config entry
 					}
 				}
+				textReader.Dispose ();
 				foreach (var cKey in ConfigKeys)
 				{
 					if (!dict.ContainsKey(cKey))
@@ -62,7 +63,7 @@ namespace LittleBitPass
 		{
 			DbName = "database";
 			DbUsername = "root";
-			DbPassword = "";
+			DbPassword = "toor";
 			DbAddress = "localhost";
 		}
 

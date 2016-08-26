@@ -14,6 +14,8 @@ namespace LittleBitPass.Controllers
 			var mvcName = typeof(Controller).Assembly.GetName ();
 			var isMono = Type.GetType ("Mono.Runtime") != null;
 
+			var conn = new DbConnector ();
+
 			ViewData ["Version"] = "v" + mvcName.Version.Major + "." + mvcName.Version.Minor;
 			ViewData ["Runtime"] = isMono ? "Mono" : ".NET";
 
