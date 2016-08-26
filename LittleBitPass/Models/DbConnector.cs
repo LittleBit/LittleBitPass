@@ -1,5 +1,6 @@
 ﻿using System;
-using Devart.Data.PostgreSql;
+using MySql.Data;
+using MySql.Data.MySqlClient;
 using System.Configuration;
 using System.Threading.Tasks;
 using System.Data.Common;
@@ -14,11 +15,11 @@ namespace LittleBitPass
 		// Singleton, prevent multiple DB connections.
 		public static readonly DbConnector Instance = new DbConnector();
 
-		internal PgSqlConnection Connection;
+		internal MySqlConnection Connection;
 
 		DbConnector() {
 			// Connection string can be found in the Web.config file
-			Connection = new PgSqlConnection(ConfigurationManager.ConnectionStrings["DbConnString"].ConnectionString);
+			Connection = new MySqlConnection(ConfigurationManager.ConnectionStrings["DbConnString"].ConnectionString);
 			Connection.Open();
 		}
 
@@ -27,8 +28,8 @@ namespace LittleBitPass
 		/// </summary>
 		/// <returns>A datareader containing the result of the query.</returns>
 		/// <param name="query">Query.</param>
-		public PgSqlDataReader RunQuery(string query) {
-			var cmd = new PgSqlCommand(query, Connection);
+		public MySqlDataReader RunQuery(string query) {
+			var cmd = new MySqlCommand(query, Connection);
 			return cmd.ExecuteReader();
 		}
 
@@ -38,7 +39,7 @@ namespace LittleBitPass
 		/// <returns>A task containing a datareader to access the result of the query.</returns>
 		/// <param name="query">Query.</param>
 		public Task<DbDataReader> RunQueryAsync(string query) {
-			var cmd = new PgSqlCommand(query, Connection);
+			var cmd = new MySqlCommand(query, Connection);
 			return cmd.ExecuteReaderAsync();
 		}
 	}
