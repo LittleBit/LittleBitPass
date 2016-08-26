@@ -83,6 +83,7 @@
     </Compile>
     <Compile Include="Models\DbConnector.cs" />
     <Compile Include="Models\LoginItem.cs" />
+    <Compile Include="Models\ConfigReader.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Web.config" />
