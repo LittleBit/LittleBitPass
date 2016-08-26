@@ -1,0 +1,1 @@
+﻿CREATE SCHEMA `littlebitpas` DEFAULT CHARACTER SET utf8;
