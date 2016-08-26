@@ -63,13 +63,10 @@
       <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
     </Reference>
     <Reference Include="System.Configuration" />
-    <Reference Include="Devart.Data">
-      <HintPath>..\packages\dotConnect.Express.for.PostgreSQL.7.6.667\lib\Devart.Data.dll</HintPath>
-    </Reference>
-    <Reference Include="Devart.Data.PostgreSql">
-      <HintPath>..\packages\dotConnect.Express.for.PostgreSQL.7.6.667\lib\Devart.Data.PostgreSql.dll</HintPath>
-    </Reference>
     <Reference Include="System.Data" />
+    <Reference Include="MySql.Data">
+      <HintPath>..\packages\MySql.Data.6.9.9\lib\net45\MySql.Data.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Content\" />
@@ -94,6 +91,7 @@
     <Content Include="Global.asax" />
     <Content Include="packages.config" />
     <Content Include="app.config" />
+    <Content Include="web.config" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Db Setup.sql" />
