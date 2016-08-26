@@ -12,16 +12,17 @@ namespace LittleBitPass
 	/// </summary>
 	public class DbConnector
 	{
-		// Singleton, prevent multiple DB connections.
-		public static readonly DbConnector Instance = new DbConnector();
-
+		private ConfigFile _config = new ConfigFile();
 		internal MySqlConnection Connection;
-
-		DbConnector() {
+		public DbConnector() {
+			Console.WriteLine (DbConnString);
 			// Connection string can be found in the Web.config file
-			Connection = new MySqlConnection(ConfigurationManager.ConnectionStrings["DbConnString"].ConnectionString);
+			Connection = new MySqlConnection(DbConnString);
 			Connection.Open();
 		}
+
+		private string DbConnString => "Server=" + _config.DbAddress + ";Uid=" + _config.DbUsername + ";Pwd=" + _config.DbPassword + ";Database=lbpdb;";
+
 
 		/// <summary>
 		/// Runs the query sync against the database and returns a datareader.
