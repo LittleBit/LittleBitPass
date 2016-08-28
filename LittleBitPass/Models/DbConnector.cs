@@ -18,10 +18,15 @@ namespace LittleBitPass
 		public DbConnector() {
 			ConfigReader.Init(config => _config = config);
 			Connection = new MySqlConnection(DbConnString);
-			Connection.Open();
+			try {
+				Connection.Open();
+			}
+			catch (MySqlException ex) {
+				Console.WriteLine (ex.Message);
+			}
 		}
 
-		private string DbConnString => "Server=" + _config.DbAddress + ";Uid=" + _config.DbUsername + ";Pwd=" + _config.DbPassword + ";Database=" + _config.DbName + ";";
+		private string DbConnString => "Server=" + _config.DbAddress + ";Uid=" + _config.DbUsername + ";Pwd=" + _config.DbPassword + ";Database=" + _config.DbName + ";Port=" + _config.DbPort + ";";
 
 
 		/// <summary>

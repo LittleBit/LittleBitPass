@@ -6,8 +6,8 @@ namespace LittleBitPass
 {
 	public static class ConfigReader
 	{
-		private const string DB_NAME = "dbName", DB_USERNAME = "dbUsername", DB_PASSWORD = "dbPassword", DB_ADDRESS = "dbAddress";
-		private static readonly string[] ConfigKeys = new [] { DB_NAME, DB_USERNAME, DB_PASSWORD, DB_ADDRESS };
+		private const string DB_NAME = "dbName", DB_USERNAME = "dbUsername", DB_PASSWORD = "dbPassword", DB_ADDRESS = "dbAddress", DB_PORT = "dbPort";
+		private static readonly string[] ConfigKeys = new [] { DB_NAME, DB_USERNAME, DB_PASSWORD, DB_ADDRESS, DB_PORT };
 
 		public static void Init(Action<ConfigFile> ready)
 		{
@@ -47,7 +47,7 @@ namespace LittleBitPass
 						return;
 					}
 				}
-				success(new ConfigFile(dict[DB_NAME],dict[DB_USERNAME],dict[DB_PASSWORD],dict[DB_ADDRESS]));
+				success(new ConfigFile(dict[DB_NAME],dict[DB_USERNAME],dict[DB_PASSWORD],dict[DB_ADDRESS],dict[DB_PORT]));
 			}
 			else {
 				fail("Config file does not exist!");
@@ -57,7 +57,7 @@ namespace LittleBitPass
 
 	public class ConfigFile
 	{
-		public readonly string DbName, DbUsername, DbPassword, DbAddress;
+		public readonly string DbName, DbUsername, DbPassword, DbAddress, DbPort;
 
 		public ConfigFile()
 		{
@@ -65,14 +65,16 @@ namespace LittleBitPass
 			DbUsername = "root";
 			DbPassword = "toor";
 			DbAddress = "localhost";
+			DbPort = "3306";
 		}
 
-		public ConfigFile(string dbName, string dbUsername, string dbPassword, string dbAdress)
+		public ConfigFile(string dbName, string dbUsername, string dbPassword, string dbAdress, string dbPort)
 		{
 			DbName = dbName;
 			DbUsername = dbUsername;
 			DbPassword = dbPassword;
 			DbAddress = dbAdress;
+			DbPort = dbPort;
 		}
 	}
 }
