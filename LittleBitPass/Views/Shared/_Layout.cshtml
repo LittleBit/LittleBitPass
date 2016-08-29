@@ -1,10 +1,27 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-    <title>@ViewBag.Title</title>
+    <title>@ViewBag.Title - LittleBitPass</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="referrer" content="never">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
 </head>
 <body>
-	@RenderBody()
+	<div class="topbar">
+		@RenderPage("_TopBar.cshtml")
+	</div>
+	<div class="wrapper">
+		@RenderBody()
+	</div>
+	<footer role="contentinfo">
+		<p class="info">
+		<a href="https://apps.moolo.org" target="_blank">LittleBit</a>
+		 - Made with
+		<font size="7" color="red">&#9829;</font>
+		 by a bunch of geeks
+		</p>
+	</footer>
 </body>
 </html>
 

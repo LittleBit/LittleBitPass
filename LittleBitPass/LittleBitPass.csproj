@@ -93,6 +93,7 @@
     <Content Include="packages.config" />
     <Content Include="app.config" />
     <Content Include="web.config" />
+    <Content Include="Views\Shared\_TopBar.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Db Setup.sql" />
