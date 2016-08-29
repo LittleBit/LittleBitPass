@@ -53,6 +53,11 @@ namespace LittleBitPass
 				fail("Config file does not exist!");
 			}
 		}
+
+		public static string DbConnStrFromConfig(ConfigFile file)
+		{			
+			return "Server=" + file.DbAddress + ";Uid=" + file.DbUsername + ";Pwd=" + file.DbPassword + ";Database=" + file.DbName + ";Port=" + file.DbPort + ";";
+		}
 	}
 
 	public class ConfigFile

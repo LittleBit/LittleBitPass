@@ -12,41 +12,40 @@ namespace LittleBitPass
 	/// </summary>
 	public class DbConnector
 	{
-		private ConfigFile _config;
-
 		internal MySqlConnection Connection;
-		public DbConnector() {
-			ConfigReader.Init(config => _config = config);
-			Connection = new MySqlConnection(DbConnString);
-			try {
+
+		public DbConnector() 
+		{
+			ConfigReader.Init(config => {
+				Connection = new MySqlConnection(ConfigReader.DbConnStrFromConfig(config));
+			});
+			try 
+			{
 				Connection.Open();
 			}
 			catch (MySqlException ex) {
-				Console.WriteLine (ex.Message);
+				Console.WriteLine ("There is a problem connection to the server: " + ex.Message);
 			}
 		}
 
-		private string DbConnString => "Server=" + _config.DbAddress + ";Uid=" + _config.DbUsername + ";Pwd=" + _config.DbPassword + ";Database=" + _config.DbName + ";Port=" + _config.DbPort + ";";
-
-
 		/// <summary>
-		/// Runs the query sync against the database and returns a datareader.
+		/// Runs the query async against the database as readonly and returns a datareader.
 		/// </summary>
-		/// <returns>A datareader containing the result of the query.</returns>
-		/// <param name="query">Query.</param>
-		public MySqlDataReader RunQuery(string query) {
-			var cmd = new MySqlCommand(query, Connection);
-			return cmd.ExecuteReader();
-		}
-
-		/// <summary>
-		/// Runs the query sync against the database and returns a datareader.
-		/// </summary>
-		/// <returns>A task containing a datareader to access the result of the query.</returns>
-		/// <param name="query">Query.</param>
-		public Task<DbDataReader> RunQueryAsync(string query) {
-			var cmd = new MySqlCommand(query, Connection);
-			return cmd.ExecuteReaderAsync();
-		}
+		/// <param name="query">The query to run</param>
+		/// <param name="succes">Run input action with as output datareader</param>
+		/// <param name="fail">Run input action with as output a string with the error message</param>
+		public void RunQueryAsync(string query, Action<DbDataReader> success, Action<string> fail) {
+			try
+			{
+				Connection.OpenAsync();
+				var cmd = new MySqlCommand(query, Connection);
+				success(cmd.ExecuteReader());
+				Connection.CloseAsync();
+			}
+			catch (MySqlException ex)
+			{
+				fail(ex.Message);
+			}
+		}			
 	}
 }
