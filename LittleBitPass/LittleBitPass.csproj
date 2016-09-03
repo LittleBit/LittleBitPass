@@ -72,6 +72,8 @@
     <Folder Include="Content\" />
     <Folder Include="Models\" />
     <Folder Include="Scripts\" />
+    <Folder Include="Content\Sssoon\" />
+    <Folder Include="Images\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controllers\HomeController.cs" />
@@ -109,6 +111,13 @@
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Content\Sssoon\coming-sssoon.css" />
+    <Content Include="Content\Sssoon\font-awesome.css" />
+    <Content Include="Content\Sssoon\grand-hotel.css" />
+    <Content Include="fonts\fontawesome-webfont.woff">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\default.jpg" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Db Setup.sql" />
