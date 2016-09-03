@@ -19,13 +19,17 @@
 	<div class="topbar">
 		@RenderPage("_TopBar.cshtml")
 	</div>
-	<div class="main" style="background-image: url('Images/default.jpg')">
+	<div class="main" style="background-image: url('@ViewBag.ImageUrl')">
 		@RenderBody()
 		<div class="footer">
 			<div class="container">
 				<a href="https://littlebit.bz" target="_blank" rel="noreferrer">LittleBit</a> – Made with <font size="7" color="red">💗</font> by a bunch of geeks			
+				<div class="imagecopyright">
+					Image – @ViewBag.ImageCopyright
+				</div>
 			</div>
 		</div>
+
 	</div>
 	<script src="~/Scripts/jquery-3.1.0.js" type="text/javascript"></script>
 	<script src="~/Scripts/bootstrap.min.js" type="text/javascript"></script>
