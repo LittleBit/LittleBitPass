@@ -99,7 +99,6 @@
     <Content Include="Global.asax" />
     <Content Include="packages.config" />
     <Content Include="app.config" />
-    <Content Include="web.config" />
     <Content Include="Views\Shared\_TopBar.cshtml" />
     <Content Include="Scripts\jquery-3.1.0-vsdoc.js" />
     <Content Include="Scripts\jquery-3.1.0.js" />
