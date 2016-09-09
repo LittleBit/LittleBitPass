@@ -6,8 +6,8 @@ namespace LittleBitPass
 {
 	public static class ConfigReader
 	{
-		private const string DB_NAME = "dbName", DB_USERNAME = "dbUsername", DB_PASSWORD = "dbPassword", DB_ADDRESS = "dbAddress", DB_PORT = "dbPort";
-		private static readonly string[] ConfigKeys = new [] { DB_NAME, DB_USERNAME, DB_PASSWORD, DB_ADDRESS, DB_PORT };
+		private const string DB_NAME = "dbName", DB_USERNAME = "dbUsername", DB_PASSWORD = "dbPassword", DB_ADDRESS = "dbAddress", DB_PORT = "dbPort", LDAP_SERVER = "ldapServer", LDAP_USER = "ldapUser", LDAP_PASSWORD = "ldapPassword", LDAP_DOMAIN = "ldapDomain", LDAP_TARGETOU = "ldapOu";
+		private static readonly string[] ConfigKeys = new [] { DB_NAME, DB_USERNAME, DB_PASSWORD, DB_ADDRESS, DB_PORT, LDAP_SERVER, LDAP_USER, LDAP_PASSWORD, LDAP_DOMAIN, LDAP_TARGETOU };
 
 		public static void Init(Action<ConfigFile> ready)
 		{
@@ -47,7 +47,7 @@ namespace LittleBitPass
 						return;
 					}
 				}
-				success(new ConfigFile(dict[DB_NAME],dict[DB_USERNAME],dict[DB_PASSWORD],dict[DB_ADDRESS],dict[DB_PORT]));
+				success(new ConfigFile(dict[DB_NAME],dict[DB_USERNAME],dict[DB_PASSWORD],dict[DB_ADDRESS],dict[DB_PORT], dict[LDAP_SERVER], dict[LDAP_USER], dict[LDAP_PASSWORD], dict[LDAP_DOMAIN], dict[LDAP_TARGETOU]));
 			}
 			else {
 				fail("Config file does not exist!");
@@ -63,6 +63,7 @@ namespace LittleBitPass
 	public class ConfigFile
 	{
 		public readonly string DbName, DbUsername, DbPassword, DbAddress, DbPort;
+		public readonly string LdapServer, LdapUser, LdapPassword, LdapDomain, LdapTargetOu;
 
 		public ConfigFile()
 		{
@@ -71,15 +72,27 @@ namespace LittleBitPass
 			DbPassword = "toor";
 			DbAddress = "localhost";
 			DbPort = "3306";
+
+			LdapServer = "localhost";
+			LdapUser = "user";
+			LdapPassword = "password";
+			LdapDomain = "localhost";
+			LdapTargetOu = "DC=test,DC=com";
 		}
 
-		public ConfigFile(string dbName, string dbUsername, string dbPassword, string dbAdress, string dbPort)
+		public ConfigFile(string dbName, string dbUsername, string dbPassword, string dbAdress, string dbPort, string ldapServer, string ldapUser, string ldapPassword, string ldapDomain, string ldapTargetOu)
 		{
 			DbName = dbName;
 			DbUsername = dbUsername;
 			DbPassword = dbPassword;
 			DbAddress = dbAdress;
 			DbPort = dbPort;
+
+			LdapServer = ldapServer;
+			LdapUser = ldapUser;
+			LdapPassword = ldapPassword;
+			LdapDomain = ldapDomain;
+			LdapTargetOu = ldapTargetOu;
 		}
 	}
 }
