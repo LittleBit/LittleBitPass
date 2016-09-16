@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 
 namespace LittleBitPass
@@ -7,14 +8,11 @@ namespace LittleBitPass
 	public static class ConfigReader
 	{
 		private const string DB_NAME = "dbName", DB_USERNAME = "dbUsername", DB_PASSWORD = "dbPassword", DB_ADDRESS = "dbAddress", DB_PORT = "dbPort", LDAP_SERVER = "ldapServer", LDAP_USER = "ldapUser", LDAP_PASSWORD = "ldapPassword", LDAP_DOMAIN = "ldapDomain", LDAP_TARGETOU = "ldapOu";
-		private static readonly string[] ConfigKeys = new [] { DB_NAME, DB_USERNAME, DB_PASSWORD, DB_ADDRESS, DB_PORT, LDAP_SERVER, LDAP_USER, LDAP_PASSWORD, LDAP_DOMAIN, LDAP_TARGETOU };
+		private static readonly string[] ConfigKeys = { DB_NAME, DB_USERNAME, DB_PASSWORD, DB_ADDRESS, DB_PORT, LDAP_SERVER, LDAP_USER, LDAP_PASSWORD, LDAP_DOMAIN, LDAP_TARGETOU };
 
 		public static void Init(Action<ConfigFile> ready)
 		{
-			ParseConfigFile(configFile =>
-			{
-				ready(configFile);
-			}, msg =>
+			ParseConfigFile(ready, msg =>
 			{
 				ready(new ConfigFile());
 			});
@@ -22,20 +20,17 @@ namespace LittleBitPass
 
 		public static void ParseConfigFile(Action<ConfigFile> success, Action<string> fail)
 		{
-			const string ConfigFilePath = "config";
-			const char ConfigSeperator = ':';
-			if (File.Exists(ConfigFilePath))
+			string configFilePath = System.Web.Hosting.HostingEnvironment.ApplicationPhysicalPath + "config";
+			const char configSeperator = ':';
+            if (File.Exists(configFilePath))
 			{
 				var dict = new Dictionary<string, string>();
-				var textReader = File.OpenText(ConfigFilePath);
+				var textReader = File.OpenText(configFilePath);
 				var line = "";
 				while ((line = textReader.ReadLine()) != null) {
-					var kvp = line.Split(ConfigSeperator);
+					var kvp = line.Split(configSeperator);
 					if (kvp.Length == 2) {
 						dict[kvp[0]] = kvp[1];
-					}
-					else {
-						// not a (valid) config entry
 					}
 				}
 				textReader.Dispose ();
@@ -43,7 +38,7 @@ namespace LittleBitPass
 				{
 					if (!dict.ContainsKey(cKey))
 					{
-						fail("Config file is missing " + cKey + "  - ");
+						fail("Config file is missing: " + cKey);
 						return;
 					}
 				}

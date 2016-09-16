@@ -1,8 +1,13 @@
-﻿
+﻿@using LittleBitPass
+
 @{
     ViewBag.Title = "Index";
     Layout = null;
 }
 
-<h2>Index</h2>
+@{
+    ConfigFile file = null;
+    ConfigReader.Init(conf => file = conf);
+    <h2>@file.LdapPassword</h2>
+}
 
