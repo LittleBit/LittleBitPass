@@ -1,10 +1,9 @@
-﻿using System;
-using System.Timers;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Net;
+using System.Timers;
 using Newtonsoft.Json;
 
-namespace LittleBitPass
+namespace LittleBitPass.Models
 {
 	public class ImageOfTheDay {
 		public static readonly ImageOfTheDay Instance = new ImageOfTheDay();

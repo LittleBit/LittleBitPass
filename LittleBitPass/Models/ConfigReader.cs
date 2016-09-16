@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
 
-namespace LittleBitPass
+namespace LittleBitPass.Models
 {
 	public static class ConfigReader
 	{

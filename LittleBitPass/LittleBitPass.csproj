@@ -90,7 +90,8 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\DbConnector.cs" />
+    <Compile Include="Models\Connectors\DbConnector.cs" />
+    <Compile Include="Models\Connectors\LdapConnector.cs" />
     <Compile Include="Models\LoginItem.cs" />
     <Compile Include="Models\ConfigReader.cs" />
     <Compile Include="Models\Constanten.cs" />

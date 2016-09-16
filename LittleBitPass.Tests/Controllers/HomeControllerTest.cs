@@ -1,13 +1,9 @@
-﻿using NUnit.Framework;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System;
 using System.Web.Mvc;
-using LittleBitPass;
 using LittleBitPass.Controllers;
+using NUnit.Framework;
 
-namespace LittleBitPass.Tests
+namespace LittleBitPass.Tests.Controllers
 {
 	[TestFixture]
 	public class HomeControllerTest

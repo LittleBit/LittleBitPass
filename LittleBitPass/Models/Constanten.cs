@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace LittleBitPass
+﻿namespace LittleBitPass.Models
 {
 	public static class Constanten
 	{

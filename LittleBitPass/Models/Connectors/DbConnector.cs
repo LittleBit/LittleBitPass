@@ -1,11 +1,8 @@
 ﻿using System;
-using MySql.Data;
-using MySql.Data.MySqlClient;
-using System.Configuration;
-using System.Threading.Tasks;
 using System.Data.Common;
+using MySql.Data.MySqlClient;
 
-namespace LittleBitPass
+namespace LittleBitPass.Models.Connectors
 {
 	/// <summary>
 	/// This class provides the connection to the database and handles queries to return a datareader.

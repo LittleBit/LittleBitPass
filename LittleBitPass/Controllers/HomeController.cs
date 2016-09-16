@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Mvc.Ajax;
+using LittleBitPass.Models;
 
 namespace LittleBitPass.Controllers
 {
