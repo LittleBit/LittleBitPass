@@ -45,8 +45,11 @@ namespace LittleBitPass.Models
                 }
                 foreach (var cKey in ConfigKeys)
                     if (!dict.ContainsKey(cKey))
+                    {
+                        dict.Add(cKey, ConfigFile.Config[cKey]);
                         Debug.WriteLine(
                             $"Config file is missing '{cKey}', default '{ConfigFile.Config[cKey]}' value is used");
+                    }
                 ConfigFile.Config = dict;
             }
             else
