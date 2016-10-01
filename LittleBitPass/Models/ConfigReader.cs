@@ -1,93 +1,87 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
+using System.Web.SessionState;
 
 namespace LittleBitPass.Models
 {
-	public static class ConfigReader
-	{
-		private const string DB_NAME = "dbName", DB_USERNAME = "dbUsername", DB_PASSWORD = "dbPassword", DB_ADDRESS = "dbAddress", DB_PORT = "dbPort", LDAP_SERVER = "ldapServer", LDAP_USER = "ldapUser", LDAP_PASSWORD = "ldapPassword", LDAP_DOMAIN = "ldapDomain", LDAP_TARGETOU = "ldapOu";
-		private static readonly string[] ConfigKeys = { DB_NAME, DB_USERNAME, DB_PASSWORD, DB_ADDRESS, DB_PORT, LDAP_SERVER, LDAP_USER, LDAP_PASSWORD, LDAP_DOMAIN, LDAP_TARGETOU };
+    internal static class ConfigReader
+    {
+        private const char ConfigSeperator = ':';
 
-		public static void Init(Action<ConfigFile> ready)
-		{
-			ParseConfigFile(ready, msg =>
-			{
-				ready(new ConfigFile());
-			});
-		}
+        public const string DbName = "dbName",
+            DbUsername = "dbUsername",
+            DbPassword = "dbPassword",
+            DbAddress = "dbAddress",
+            DbPort = "dbPort",
+            LdapServer = "ldapServer",
+            LdapUser = "ldapUser",
+            LdapPassword = "ldapPassword",
+            LdapDomain = "ldapDomain",
+            LdapTargetOu = "ldapOu";
 
-		public static void ParseConfigFile(Action<ConfigFile> success, Action<string> fail)
-		{
-			string configFilePath = System.Web.Hosting.HostingEnvironment.ApplicationPhysicalPath + "config";
-			const char configSeperator = ':';
+        private static readonly string[] ConfigKeys =
+        {
+            DbName, DbUsername, DbPassword, DbAddress, DbPort,
+            LdapServer, LdapUser, LdapPassword, LdapDomain, LdapTargetOu
+        };
+
+        public static void ParseConfigFile()
+        {
+            var configFilePath = System.Web.Hosting.HostingEnvironment.ApplicationPhysicalPath + "config";
             if (File.Exists(configFilePath))
-			{
-				var dict = new Dictionary<string, string>();
-				var textReader = File.OpenText(configFilePath);
-				var line = "";
-				while ((line = textReader.ReadLine()) != null) {
-					var kvp = line.Split(configSeperator);
-					if (kvp.Length == 2) {
-						dict[kvp[0]] = kvp[1];
-					}
-				}
-				textReader.Dispose ();
-				foreach (var cKey in ConfigKeys)
-				{
-					if (!dict.ContainsKey(cKey))
-					{
-						fail("Config file is missing: " + cKey);
-						return;
-					}
-				}
-				success(new ConfigFile(dict[DB_NAME],dict[DB_USERNAME],dict[DB_PASSWORD],dict[DB_ADDRESS],dict[DB_PORT], dict[LDAP_SERVER], dict[LDAP_USER], dict[LDAP_PASSWORD], dict[LDAP_DOMAIN], dict[LDAP_TARGETOU]));
-			}
-			else {
-				fail("Config file does not exist!");
-			}
-		}
+            {
+                var dict = new Dictionary<string, string>();
+                using (var textReader = File.OpenText(configFilePath))
+                {
+                    string line;
+                    while ((line = textReader.ReadLine()) != null)
+                    {
+                        var kvp = line.Split(ConfigSeperator);
+                        if (kvp.Length == 2)
+                            dict[kvp[0]] = kvp[1];
+                    }
+                }
+                foreach (var cKey in ConfigKeys)
+                    if (!dict.ContainsKey(cKey))
+                        Debug.WriteLine(
+                            $"Config file is missing '{cKey}', default '{ConfigFile.Config[cKey]}' value is used");
+                ConfigFile.Config = dict;
+            }
+            else
+                Debug.WriteLine("!!! Config file does not exist. Default values are used. !!!");
+        }
 
-		public static string DbConnStrFromConfig(ConfigFile file)
-		{			
-			return "Server=" + file.DbAddress + ";Uid=" + file.DbUsername + ";Pwd=" + file.DbPassword + ";Database=" + file.DbName + ";Port=" + file.DbPort + ";";
-		}
-	}
+        public static string DbConnString
+            => "Server=" + ConfigFile.Config[DbAddress] + ";Uid=" + ConfigFile.Config[DbUsername] + ";Pwd=" +
+               ConfigFile.Config[DbPassword] + ";Database=" +
+               ConfigFile.Config[DbName] + ";Port=" + ConfigFile.Config[DbPort] + ";";
 
-	public class ConfigFile
-	{
-		public readonly string DbName, DbUsername, DbPassword, DbAddress, DbPort;
-		public readonly string LdapServer, LdapUser, LdapPassword, LdapDomain, LdapTargetOu;
+        public class ConfigFile : Dictionary<string, string>
+        {
+            public static Dictionary<string, string> Config = new ConfigFile();
 
-		public ConfigFile()
-		{
-			DbName = "database";
-			DbUsername = "root";
-			DbPassword = "toor";
-			DbAddress = "localhost";
-			DbPort = "3306";
+            private ConfigFile()
+            {
+                Add(ConfigReader.DbName, "database");
+                Add(ConfigReader.DbUsername, "root");
+                Add(ConfigReader.DbPassword, "toor");
+                Add(ConfigReader.DbAddress, "localhost");
+                Add(ConfigReader.DbPort, "3306");
 
-			LdapServer = "localhost";
-			LdapUser = "user";
-			LdapPassword = "password";
-			LdapDomain = "localhost";
-			LdapTargetOu = "DC=test,DC=com";
-		}
+                Add(ConfigReader.LdapServer, "localhost");
+                Add(ConfigReader.LdapUser, "user");
+                Add(ConfigReader.LdapPassword, "password");
+                Add(ConfigReader.LdapDomain, "localhost");
+                Add(ConfigReader.LdapTargetOu, "DC=test,DC=com");
+            }
 
-		public ConfigFile(string dbName, string dbUsername, string dbPassword, string dbAdress, string dbPort, string ldapServer, string ldapUser, string ldapPassword, string ldapDomain, string ldapTargetOu)
-		{
-			DbName = dbName;
-			DbUsername = dbUsername;
-			DbPassword = dbPassword;
-			DbAddress = dbAdress;
-			DbPort = dbPort;
-
-			LdapServer = ldapServer;
-			LdapUser = ldapUser;
-			LdapPassword = ldapPassword;
-			LdapDomain = ldapDomain;
-			LdapTargetOu = ldapTargetOu;
-		}
-	}
+            internal static void SetConfig(Dictionary<string, string> config)
+            {
+                Config = config;
+            }
+        }
+    }
 }
 

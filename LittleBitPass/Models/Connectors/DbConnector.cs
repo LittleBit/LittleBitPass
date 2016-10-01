@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Data.Common;
+using System.Diagnostics;
 using MySql.Data.MySqlClient;
 
 namespace LittleBitPass.Models.Connectors
@@ -11,17 +12,15 @@ namespace LittleBitPass.Models.Connectors
 	{
 		internal MySqlConnection Connection;
 
-		public DbConnector() 
+		public DbConnector()
 		{
-			ConfigReader.Init(config => {
-				Connection = new MySqlConnection(ConfigReader.DbConnStrFromConfig(config));
-			});
-			try 
+		    Connection = new MySqlConnection(ConfigReader.DbConnString);
+            try 
 			{
 				Connection.Open();
 			}
 			catch (MySqlException ex) {
-				Console.WriteLine ("There is a problem connection to the server: " + ex.Message);
+				Debug.WriteLine ("There is a problem connection to the server: " + ex.Message);
 			}
 		}
 

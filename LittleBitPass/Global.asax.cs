@@ -32,6 +32,8 @@ namespace LittleBitPass
 			AreaRegistration.RegisterAllAreas ();
 			RegisterGlobalFilters (GlobalFilters.Filters);
 			RegisterRoutes (RouteTable.Routes);
+
+            Startup.Init();
 		}
 	}
 }
