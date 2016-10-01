@@ -9,6 +9,7 @@ namespace LittleBitPass.Models.Connectors
 
         public LdapConnector()
         {
+            /*
             ConfigReader.Init(config =>
             {
                 Connection = new LdapConnection(config.LdapServer)
@@ -17,6 +18,7 @@ namespace LittleBitPass.Models.Connectors
                 };
 
             });
+            */
         }
     }
 }
