@@ -12,14 +12,7 @@ namespace LittleBitPass.Models
 
         public static void GetEntry(int index)
         {
-            var query = $"SELECT * FROM Entry WHERE entryid = {index}";
-            DbConnector.RunQueryAsync(query, reader =>
-            {
-                reader.Read();
-            }, s =>
-            {
-                
-            });
+
         }
     }
 }

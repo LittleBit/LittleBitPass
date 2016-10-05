@@ -57,33 +57,31 @@ namespace LittleBitPass.Models
         }
 
         public static string DbConnString
-            => "Server=" + ConfigFile.Config[DbAddress] + ";Uid=" + ConfigFile.Config[DbUsername] + ";Pwd=" +
-               ConfigFile.Config[DbPassword] + ";Database=" +
-               ConfigFile.Config[DbName] + ";Port=" + ConfigFile.Config[DbPort] + ";";
+            => "mongodb://";
+        
+    }
+    public class ConfigFile : Dictionary<string, string>
+    {
+        public static Dictionary<string, string> Config = new ConfigFile();
 
-        public class ConfigFile : Dictionary<string, string>
+        private ConfigFile()
         {
-            public static Dictionary<string, string> Config = new ConfigFile();
+            Add(ConfigReader.DbName, "local");
+            Add(ConfigReader.DbUsername, "");
+            Add(ConfigReader.DbPassword, "");
+            Add(ConfigReader.DbAddress, "localhost");
+            Add(ConfigReader.DbPort, "27017");
 
-            private ConfigFile()
-            {
-                Add(ConfigReader.DbName, "database");
-                Add(ConfigReader.DbUsername, "root");
-                Add(ConfigReader.DbPassword, "toor");
-                Add(ConfigReader.DbAddress, "localhost");
-                Add(ConfigReader.DbPort, "3306");
+            Add(ConfigReader.LdapServer, "localhost");
+            Add(ConfigReader.LdapUser, "user");
+            Add(ConfigReader.LdapPassword, "password");
+            Add(ConfigReader.LdapDomain, "localhost");
+            Add(ConfigReader.LdapTargetOu, "DC=test,DC=com");
+        }
 
-                Add(ConfigReader.LdapServer, "localhost");
-                Add(ConfigReader.LdapUser, "user");
-                Add(ConfigReader.LdapPassword, "password");
-                Add(ConfigReader.LdapDomain, "localhost");
-                Add(ConfigReader.LdapTargetOu, "DC=test,DC=com");
-            }
-
-            internal static void SetConfig(Dictionary<string, string> config)
-            {
-                Config = config;
-            }
+        internal static void SetConfig(Dictionary<string, string> config)
+        {
+            Config = config;
         }
     }
 }
