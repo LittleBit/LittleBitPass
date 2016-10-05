@@ -12,9 +12,11 @@ namespace LittleBitPass
         public static void Init()
         {
             ConfigReader.ParseConfigFile();
+            /*
             var test = NoSqlConnector.Connector;
             test.TestConnector();
             test.SavePasswordEntity(1);
+            */
         }
     }
 }

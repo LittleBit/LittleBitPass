@@ -30,12 +30,9 @@ namespace LittleBitPass.Models
 		    catch
 		    {
 		        Debug.WriteLine("Updating the image from the Bing service failed, default image is used...");
-		    }
-		    finally
-		    {
-		        Image = "/Content/Images/default.jpg";
-		        ImageCopyright = "Night Sky";
-		    }
+                Image = "/Content/Images/default.jpg";
+                ImageCopyright = "Night Sky";
+            }
 		}
 		
 

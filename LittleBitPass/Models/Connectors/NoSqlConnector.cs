@@ -43,11 +43,11 @@ namespace LittleBitPass.Models.Connectors
             ;
         }
 
-        public void SavePasswordEntity(int userId)
+        public void SavePasswordEntity(string userId)
         {
             var document = new BsonDocument
             {
-                { "user_id", 1 },
+                { "username", userId },
                 {
                     "passwords", new BsonDocument
                     {
