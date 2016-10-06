@@ -2,6 +2,7 @@
 using System.Net;
 using System.Timers;
 using Newtonsoft.Json;
+using System.Text;
 
 namespace LittleBitPass.Models
 {
@@ -21,6 +22,7 @@ namespace LittleBitPass.Models
 		    {
 		        using (var client = new WebClient())
 		        {
+		            client.Encoding = Encoding.UTF8;
 		            var response = client.DownloadString(Constanten.BING_PICTURE_OF_THE_DAY_ADDR);
 		            var obj = JsonConvert.DeserializeObject<ImagesOfTheDayJson>(response).Images[0];
 		            Image = "http://www.bing.com" + obj.Url;
