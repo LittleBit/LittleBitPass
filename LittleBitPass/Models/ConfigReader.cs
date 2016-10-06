@@ -15,6 +15,7 @@ namespace LittleBitPass.Models
             DbPassword = "dbPassword",
             DbAddress = "dbAddress",
             DbPort = "dbPort",
+            DbPasswordCollectionName = "dbPwdCollName",
             LdapServer = "ldapServer",
             LdapUser = "ldapUser",
             LdapPassword = "ldapPassword",
@@ -23,7 +24,7 @@ namespace LittleBitPass.Models
 
         private static readonly string[] ConfigKeys =
         {
-            DbName, DbUsername, DbPassword, DbAddress, DbPort,
+            DbName, DbUsername, DbPassword, DbAddress, DbPort, DbPasswordCollectionName,
             LdapServer, LdapUser, LdapPassword, LdapDomain, LdapTargetOu
         };
 
@@ -71,6 +72,7 @@ namespace LittleBitPass.Models
             Add(ConfigReader.DbPassword, "");
             Add(ConfigReader.DbAddress, "localhost");
             Add(ConfigReader.DbPort, "27017");
+            Add(ConfigReader.DbPasswordCollectionName, "Passwords");
 
             Add(ConfigReader.LdapServer, "localhost");
             Add(ConfigReader.LdapUser, "user");

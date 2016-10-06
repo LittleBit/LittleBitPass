@@ -111,6 +111,8 @@
     <Compile Include="Models\ConfigReader.cs" />
     <Compile Include="Models\Constanten.cs" />
     <Compile Include="Models\ImageOfTheDay.cs" />
+    <Compile Include="Models\NoSqlModels\BsonBuilders.cs" />
+    <Compile Include="Models\NoSqlModels\BsonTemplates.cs" />
     <Compile Include="Models\QueryHandler.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
